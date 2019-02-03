@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\LinkedSocialAccount;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,10 +64,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $data =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if (\Session::has("line_user_id")) {
+            $insert = [
+                'user_id' => $data['id'],
+                'provider_name' => 'line',
+                'provider_id' => \Session::get("line_user_id")
+            ];
+            LinkedSocialAccount::create($insert);
+        }
+        return $data;
     }
 }
