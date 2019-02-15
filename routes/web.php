@@ -21,3 +21,9 @@ Route::get('/login/{provider}/callback', 'Auth\SocialAccountController@handlePro
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/complete-registration', 'Auth\RegisterController@completeRegistration');
+Route::post('/2fa', function () {
+    return redirect('home');
+})->name('2fa')->middleware('2fa');
+Route::get('/re-authenticate', 'HomeController@reauthenticate');
