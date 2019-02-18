@@ -27,3 +27,6 @@ Route::post('/2fa', function () {
     return redirect('home');
 })->name('2fa')->middleware('2fa');
 Route::get('/re-authenticate', 'HomeController@reauthenticate');
+
+Route::get('/photos', 'PhotosController@showForm');
+Route::post('/photos', 'PhotosController@submitForm');
