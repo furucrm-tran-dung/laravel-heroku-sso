@@ -30,3 +30,5 @@ Route::get('/re-authenticate', 'HomeController@reauthenticate');
 
 Route::get('/photos', 'PhotosController@showForm');
 Route::post('/photos', 'PhotosController@submitForm');
+Route::get('/photos/upload', 'PhotosController@showFormUpload');
+Route::post('/photos/upload', 'PhotosController@submitFormUpload');
